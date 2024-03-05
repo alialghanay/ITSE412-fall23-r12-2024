@@ -2,9 +2,9 @@
 
 // Database credentials
 $host = "localhost"; // Change this to your database host
-$username = "your_username"; // Change this to your database username
-$password = "your_password"; // Change this to your database password
-$database = "rpppo"; // Change this to your database name
+$username = "root"; // Change this to your database username
+$password = "1234"; // Change this to your database password
+$database = "rppp"; // Change this to your database name
 
 // Attempt to connect to the database
 $conn = new mysqli($host, $username, $password, $database);
