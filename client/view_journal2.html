@@ -53,9 +53,9 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="#" class="logo d-flex align-items-center">
         <img src="../Assets/assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NiceAdmin</span>
+        <span class="d-none d-lg-block">  RPPP</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->        
@@ -68,77 +68,20 @@
 
 
 
-      
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Chart.js</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ApexCharts</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Charts Nav -->
-
+        <li class="nav-heading">Pages</li>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="http://localhost:8000/rppp/client/view_journal2.html">
+            <i class="bi bi-card-list"></i>
+            <span>Journals</span>
+          </a>
+        </li><!-- End Register Page Nav -->
+     
     
+     
+     
+   
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Chart.js</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ApexCharts</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Charts Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="icons-bootstrap.html">
-              <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-remix.html">
-              <i class="bi bi-circle"></i><span>Remix Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-boxicons.html">
-              <i class="bi bi-circle"></i><span>Boxicons</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Icons Nav -->
+      
 
       <li class="nav-heading">Pages</li>
       <li class="nav-item">
@@ -172,15 +115,17 @@
     </div><!-- End Page Title -->
 
     <section class="section">
-      <div class="row">
+        <h2 id="sos" style="font-size: 35px; font-weight: bold; text-transform: uppercase; margin-bottom: 20px;text-align: center;">Journals</h2>      <div class="row">
         <div class="col-lg-12">
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">General Form Elements</h5>
+              <h5 class="card-title"> </h5>
 
              <div class="container mt-5">
-    <h2>View Journals</h2>
+                <div class="text-left mb-3">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addJournalModal">Add Journal</button>
+                  </div>
     <!-- Container for the table -->
     <div id="journalsTable"></div>
   </div>
@@ -309,6 +254,48 @@
 
   <!-- Template Main JS File -->
   <script src="../Assets/assets/js/main.js"></script>
+
+   <!-- Modal -->
+   <div class="modal fade" id="addJournalModal" tabindex="-1" role="dialog" aria-labelledby="addJournalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addJournalModalLabel">Add New Journal</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Form for adding new journal -->
+          <form id="addJournalForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="jname">Journal Name</label>
+              <input type="text" class="form-control" id="jname" name="jname" required>
+            </div>
+            <div class="form-group">
+              <label for="jphoto">Journal Photo</label>
+              <input type="file" class="form-control-file" id="jphoto" name="jphoto" accept="image/*">
+            </div>
+            <div class="form-group">
+              <label for="jdesc">Description</label>
+              <textarea class="form-control" id="jdesc" name="jdesc" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="daysallowed">Days Allowed</label>
+              <input type="number" class="form-control" id="daysallowed" name="daysallowed" required>
+            </div>
+            <div class="form-group">
+              <label for="c_name">Category Name</label>
+              <input type="text" class="form-control" id="c_name" name="c_name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Journal</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 </body>
 
