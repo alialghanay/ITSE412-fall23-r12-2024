@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
         $output .= '<td>' . $row['c_name'] . '</td>';
        
         $output .= '<td>';
-        $output .= '<a href="update_journal.html?j_id='.$row['j_id'].'" class="btn btn-primary btn-sm mr-1">Update</a>';
+        $output .= '<button class="btn btn-primary btn-sm mr-1" onclick="openUpdateJournalModal('.$row['j_id'].', \''.$row['jname'].'\', \''.$row['jdesc'].'\', '.$row['daysallowed'].', \''.$row['c_name'].'\')">Update</button>';
         $output .= '<button class="btn btn-danger btn-sm" onclick="deleteJournal('.$row['j_id'].')">Delete</button>';
         $output .= '</td>';
         $output .= '</tr>';

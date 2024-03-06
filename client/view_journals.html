@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <!-- Bootstrap CSS -->
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -16,7 +17,36 @@
   <!-- JavaScript -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    $(document).ready(function() {
+    // Function to open the update journal modal and populate form fields with existing data
+    function openUpdateJournalModal(journalId, journalName, journalDesc, daysAllowed, categoryName) {
+        $('#updateJId').val(journalId);
+        $('#updateJName').val(journalName);
+        $('#updateJDesc').val(journalDesc);
+        $('#updateDaysAllowed').val(daysAllowed);
+        $('#updateCName').val(categoryName);
+        $('#updateJournalModal').modal('show');
+      }
+  
+      // Function to handle form submission for updating journal data
+      $('#updateJournalForm').submit(function(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+        var formData = $(this).serialize(); // Serialize form data
+        $.ajax({
+          url: 'http://localhost:8000/rppp/server/update_journal.php', // Path to your PHP update script
+          type: 'POST',
+          data: formData,
+          success: function(response) {
+            alert(response); // Display success message
+            $('#updateJournalModal').modal('hide'); // Hide the modal after successful update
+            // Optionally, you can update the page content here to reflect the changes
+          },
+          error: function(xhr, status, error) {
+            console.error(xhr.responseText); // Log any errors
+            alert('Error updating journal: ' + error); // Display error message
+          }
+        });
+      });
+  
       // Function to fetch journals data
       function fetchJournals() {
         $.ajax({
@@ -33,50 +63,92 @@
           }
         });
       }
-      
-      // Initial fetch of journals data
-      fetchJournals();
-      
-      // Periodically fetch journals data every 5 seconds
-      setInterval(fetchJournals, 5000); // Adjust the interval as needed
-
-      // Function to handle the delete confirmation
-      $('#confirmDeleteButton').click(function() {
-        var journalId = $(this).attr('data-journal-id');
-        // Send AJAX request to delete the journal
-        $.ajax({
-          url: 'http://localhost:8000/rppp/server/delete_journal.php',
-          type: 'GET',
-          data: { j_id: journalId },
-          success: function(response) {
-            // Display success message
-            alert(response);
-            // Optionally, update the page content after successful deletion
-            // For example, you can remove the deleted row from the table
-            // $('#journalRow' + journalId).remove();
-            // Hide the confirmation modal
-            $('#deleteConfirmationModal').modal('hide');
-          },
-          error: function(xhr, status, error) {
-            // Display error message
-            console.error(xhr.responseText);
-            alert('Error deleting journal: ' + error); // Display the specific error message
-            // Hide the confirmation modal
-            $('#deleteConfirmationModal').modal('hide');
-          }
+  
+      $(document).ready(function() {
+        // Initial fetch of journals data
+        fetchJournals();
+  
+        // Periodically fetch journals data every 5 seconds
+        setInterval(fetchJournals, 5000); // Adjust the interval as needed
+  
+        // Function to handle the delete confirmation
+        $('#confirmDeleteButton').click(function() {
+          var journalId = $(this).attr('data-journal-id');
+          // Send AJAX request to delete the journal
+          $.ajax({
+            url: 'http://localhost:8000/rppp/server/delete_journal.php',
+            type: 'GET',
+            data: { j_id: journalId },
+            success: function(response) {
+              // Display success message
+              alert(response);
+              // Optionally, update the page content after successful deletion
+              // For example, you can remove the deleted row from the table
+              // $('#journalRow' + journalId).remove();
+              // Hide the confirmation modal
+              $('#deleteConfirmationModal').modal('hide');
+            },
+            error: function(xhr, status, error) {
+              // Display error message
+              console.error(xhr.responseText);
+              alert('Error deleting journal: ' + error); // Display the specific error message
+              // Hide the confirmation modal
+              $('#deleteConfirmationModal').modal('hide');
+            }
+          });
         });
       });
-    });
-
-    // Function to delete the journal via AJAX
-    function deleteJournal(journalId) {
-      // Set the journal ID to a data attribute on the delete button
-      $('#confirmDeleteButton').attr('data-journal-id', journalId);
-      // Show the confirmation modal
-      $('#deleteConfirmationModal').modal('show');
-    }
+  
+      // Function to delete the journal via AJAX
+      function deleteJournal(journalId) {
+        // Set the journal ID to a data attribute on the delete button
+        $('#confirmDeleteButton').attr('data-journal-id', journalId);
+        // Show the confirmation modal
+        $('#deleteConfirmationModal').modal('show');
+      }
   </script>
+  
 
+<!-- Update Journal Modal -->
+<div class="modal fade" id="updateJournalModal" tabindex="-1" role="dialog" aria-labelledby="updateJournalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateJournalModalLabel">Update Journal</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="updateJournalForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="updateJName">Journal Name</label>
+              <input type="text" class="form-control" id="updateJName" name="updateJName" required>
+            </div>
+            <div class="form-group">
+              <label for="updateJDesc">Description</label>
+              <textarea class="form-control" id="updateJDesc" name="updateJDesc" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="updateDaysAllowed">Days Allowed</label>
+              <input type="number" class="form-control" id="updateDaysAllowed" name="updateDaysAllowed" required>
+            </div>
+            <div class="form-group">
+              <label for="updateCName">Category Name</label>
+              <input type="text" class="form-control" id="updateCName" name="updateCName" required>
+            </div>
+            <div class="form-group">
+              <label for="updateJPhoto">Journal Photo</label>
+              <input type="file" class="form-control-file" id="updateJPhoto" name="updateJPhoto">
+            </div>
+            <input type="hidden" id="updateJId" name="updateJId">
+            <button type="submit" class="btn btn-primary" id="confirmUpdateButton">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <!-- Bootstrap confirmation modal -->
   <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
