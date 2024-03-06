@@ -39,3 +39,4 @@ function deleteJournal(journalId) {
       });
     });
   });
+  

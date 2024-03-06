@@ -176,7 +176,29 @@
               });
             }
         
-            
+            $(document).ready(function() {
+    // Handle form submission for updating journal
+    $('#updateJournalForm').submit(function(event) {
+      event.preventDefault(); // Prevent default form submission behavior
+      var formData = new FormData(this); // Create FormData object to handle file upload
+      $.ajax({
+        url: 'http://localhost:8000/rppp/server/update_journal.php', // Path to your PHP update journal script
+        type: 'POST',
+        data: formData,
+        contentType: false, // Set contentType to false for FormData object
+        processData: false, // Set processData to false for FormData object
+        success: function(response) {
+          alert(response); // Display success message
+          $('#updateJournalModal').modal('hide'); // Hide the modal after updating journal
+          $('#updateJournalForm')[0].reset(); // Reset the form
+        },
+        error: function(xhr, status, error) {
+          console.error(xhr.responseText); // Log any errors
+          alert('Error updating journal: ' + error); // Display error message
+        }
+      });
+    });
+  });
         </script>              
                
       <!-- End General Form Elements -->
@@ -188,43 +210,44 @@
       </div>
     </section>
     <div class="modal fade" id="updateJournalModal" tabindex="-1" role="dialog" aria-labelledby="updateJournalModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="updateJournalModalLabel">Update Journal</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form id="updateJournalForm" enctype="multipart/form-data">
-              <div class="form-group">
-                <label for="updateJName">Journal Name</label>
-                <input type="text" class="form-control" id="updateJName" name="updateJName" required>
-              </div>
-              <div class="form-group">
-                <label for="updateJDesc">Description</label>
-                <textarea class="form-control" id="updateJDesc" name="updateJDesc" rows="4" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="updateDaysAllowed">Days Allowed</label>
-                <input type="number" class="form-control" id="updateDaysAllowed" name="updateDaysAllowed" required>
-              </div>
-              <div class="form-group">
-                <label for="updateCName">Category Name</label>
-                <input type="text" class="form-control" id="updateCName" name="updateCName" required>
-              </div>
-              <div class="form-group">
-                <label for="updateJPhoto">Journal Photo</label>
-                <input type="file" class="form-control-file" id="updateJPhoto" name="updateJPhoto">
-              </div>
-              <input type="hidden" id="updateJId" name="updateJId">
-              <button type="submit" class="btn btn-primary" id="confirmUpdateButton">Update</button>
-            </form>
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="updateJournalModalLabel">Update Journal</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Form for updating journal -->
+              <form id="updateJournalForm" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label for="updateJName">Journal Name</label>
+                  <input type="text" class="form-control" id="updateJName" name="updateJName" required>
+                </div>
+                <div class="form-group">
+                  <label for="updateJDesc">Description</label>
+                  <textarea class="form-control" id="updateJDesc" name="updateJDesc" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="updateDaysAllowed">Days Allowed</label>
+                  <input type="number" class="form-control" id="updateDaysAllowed" name="updateDaysAllowed" required>
+                </div>
+                <div class="form-group">
+                  <label for="updateCName">Category Name</label>
+                  <input type="text" class="form-control" id="updateCName" name="updateCName" required>
+                </div>
+                <div class="form-group">
+                  <label for="updateJPhoto">Journal Photo</label>
+                  <input type="file" class="form-control-file" id="updateJPhoto" name="updateJPhoto">
+                </div>
+                <input type="hidden" id="updateJId" name="updateJId">
+                <button type="submit" class="btn btn-primary" id="confirmUpdateButton">Update</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     
     <!-- Bootstrap confirmation modal -->
     <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
