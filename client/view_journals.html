@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+ <!-- jQuery -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>View Journals</title>
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+ 
 </head>
 <body>
   <div class="container mt-5">
@@ -70,27 +74,36 @@
  
   // Function to delete the journal via AJAX
   function deleteJournal(journalId) {
-    // Display confirmation dialog
-    if (confirm("Are you sure you want to delete this journal?")) {
-      // Send AJAX request to delete the journal
-      $.ajax({
-        url: 'http://localhost:8000/rppp/server/delete_journal.php',
-        type: 'GET',
-        data: { j_id: journalId },
-        success: function(response) {
-          // Display success message
-          alert(response);
-          // Optionally, update the page content after successful deletion
-          // For example, you can remove the deleted row from the table
-          // $('#journalRow' + journalId).remove();
-        },
-        error: function(xhr, status, error) {
-          // Display error message
-           // Display the specific error message
-        }
-      });
-    }
+    // Set the journal ID to a data attribute on the delete button
+    $('#confirmDeleteButton').attr('data-journal-id', journalId);
+    // Show the confirmation modal
+    $('#deleteConfirmationModal').modal('show');
   }
+
+  // Function to handle the delete confirmation
+  $('#confirmDeleteButton').click(function() {
+    var journalId = $(this).attr('data-journal-id');
+    // Send AJAX request to delete the journal
+    $.ajax({
+      url: 'http://localhost:8000/rppp/server/delete_journal.php',
+      type: 'GET',
+      data: { j_id: journalId },
+      success: function(response) {
+        // Display success message
+        alert(response);
+        // Optionally, update the page content after successful deletion
+        // For example, you can remove the deleted row from the table
+        // $('#journalRow' + journalId).remove();
+      },
+      error: function(xhr, status, error) {
+        // Display error message
+        console.error(xhr.responseText);
+        alert('Error deleting journal: ' + error); // Display the specific error message
+      }
+    });
+    // Hide the confirmation modal
+    $('#deleteConfirmationModal').modal('hide');
+  });
  
 
   </script>
