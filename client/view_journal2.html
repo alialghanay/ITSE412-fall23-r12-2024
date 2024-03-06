@@ -135,7 +135,29 @@
         </div>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script>
-         
+          $(document).ready(function() {
+      // Handle form submission for adding new journal
+      $('#addJournalForm').submit(function(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+        var formData = new FormData(this); // Create FormData object to handle file upload
+        $.ajax({
+          url: 'http://localhost:8000/rppp/server/add_journal.php', // Path to your PHP add journal script
+          type: 'POST',
+          data: formData,
+          contentType: false, // Set contentType to false for FormData object
+          processData: false, // Set processData to false for FormData object
+          success: function(response) {
+            alert(response); // Display success message
+            $('#addJournalModal').modal('hide'); // Hide the modal after adding journal
+            $('#addJournalForm')[0].reset(); // Reset the form
+          },
+          error: function(xhr, status, error) {
+            console.error(xhr.responseText); // Log any errors
+            alert('Error adding journal: ' + error); // Display error message
+          }
+        });
+      });
+    });
         
             // Function to fetch journals data
             function fetchJournals() {
