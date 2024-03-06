@@ -10,7 +10,7 @@ function deleteJournal(journalId) {
     fetchJournals();
 
     // Periodically fetch journals data every 5 seconds
-    setInterval(fetchJournals, 5000); // Adjust the interval as needed
+    setInterval(fetchJournals, 1000); // Adjust the interval as needed
 
     // Function to handle the delete confirmation
     $('#confirmDeleteButton').click(function() {

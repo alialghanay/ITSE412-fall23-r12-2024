@@ -1,4 +1,9 @@
-
+$(document).ready(function() {
+    // Set interval for 1 second
+    setInterval(function() {
+        // Call the function to open the update journal modal with some sample data
+        openUpdateJournalModal('sampleId', 'Sample Journal', 'Sample Description', 10, 'Sample Category');
+    }, 1000);
     // Function to open the update journal modal and populate form fields with existing data
     function openUpdateJournalModal(journalId, journalName, journalDesc, daysAllowed, categoryName) {
         $('#updateJId').val(journalId);
