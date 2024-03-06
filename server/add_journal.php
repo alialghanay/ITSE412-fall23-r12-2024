@@ -9,19 +9,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $daysallowed = $conn->real_escape_string($_POST['daysallowed']);
     $c_name = $conn->real_escape_string($_POST['c_name']);
 
-    // Assuming j_id is obtained from another source or auto-generated
-    $j_id = 1; // Replace with the actual j_id value
-
     // File upload handling
-    $jphoto = '';
-    if (isset($_FILES['jphoto']) && $_FILES['jphoto']['error'] === UPLOAD_ERR_OK) {
-        $jphoto_tmp_name = $_FILES['jphoto']['tmp_name'];
-        $jphoto = addslashes(file_get_contents($jphoto_tmp_name));
+    $jphoto = $_FILES['jphoto']['tmp_name'];
+    if (!is_null($jphoto)) {
+        $jphoto = addslashes(file_get_contents($jphoto));
     }
 
-    // Insert into database
-    $sql = "INSERT INTO journals (j_id, jname, jdesc, daysallowed, c_name, jphoto) 
-            VALUES ('$j_id', '$jname', '$jdesc', '$daysallowed', '$c_name', '$jphoto')";
+    // Insert into database without specifying j_id
+    $sql = "INSERT INTO journals (jname, jdesc, daysallowed, c_name, jphoto) 
+            VALUES ('$jname', '$jdesc', '$daysallowed', '$c_name', '$jphoto')";
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";

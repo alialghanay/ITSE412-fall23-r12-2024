@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Journals</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+  <div class="container mt-5">
+    <h2>View Journals</h2>
+    <!-- Container for the table -->
+    <div id="journalsTable"></div>
+    
+</div>
+
+  <!-- JavaScript for AJAX request -->
+  <<script>
+    $(document).ready(function() {
+      // Function to fetch journals data
+      function fetchJournals() {
+        $.ajax({
+          url: 'http://localhost:8000/rppp/server/get_journals.php',
+          type: 'GET',
+          success: function(response) {
+            // Display the retrieved data in the 'journalsTable' div
+            $('#journalsTable').html(response);
+          },
+          error: function(xhr, status, error) {
+            // Handle errors
+            console.error(xhr.responseText);
+            $('#journalsTable').html('<p>Error retrieving journals data.</p>');
+          }
+        });
+      }
+      
+      // Initial fetch of journals data
+      fetchJournals();
+      
+      // Periodically fetch journals data every 5 seconds
+      setInterval(fetchJournals, 1000); // Adjust the interval as needed
+    });
+  </script>
+</body>
+</html>
