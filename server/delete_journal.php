@@ -1,4 +1,10 @@
 <?php
+// Set CORS headers to allow requests from any origin
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST");
+header("Access-Control-Allow-Headers: Content-Type");
+
+// Include the connection script
 include 'connect.php'; // Assuming you have a connection script named connect.php
 
 // Check if j_id parameter is set and not empty
