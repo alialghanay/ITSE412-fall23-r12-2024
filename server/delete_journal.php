@@ -6,11 +6,10 @@ if (isset($_GET['j_id']) && !empty($_GET['j_id'])) {
     // Sanitize the j_id parameter
     $j_id = $conn->real_escape_string($_GET['j_id']);
 
-    // Prepare the DELETE query
-    $sql = "DELETE FROM journals WHERE j_id = '$j_id'";
+    // Delete the journal from the database
+    $sql_delete = "DELETE FROM journals WHERE j_id = '$j_id'";
 
-    // Execute the DELETE query
-    if ($conn->query($sql) === TRUE) {
+    if ($conn->query($sql_delete) === TRUE) {
         echo "Journal with j_id = $j_id deleted successfully";
     } else {
         echo "Error deleting record: " . $conn->error;

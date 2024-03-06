@@ -17,6 +17,20 @@ if (isset($_GET['j_id']) && !empty($_GET['j_id'])) {
         $jdesc_previous = $row['jdesc'];
         $daysallowed_previous = $row['daysallowed'];
         $c_name_previous = $row['c_name'];
+        $jphoto = $row['jphoto'];
+
+        // Prepare journal data as an associative array
+        $journalData = array(
+            'j_id' => $j_id,
+            'jname' => $jname_previous,
+            'jdesc' => $jdesc_previous,
+            'daysallowed' => $daysallowed_previous,
+            'c_name' => $c_name_previous,
+            'jphoto' => base64_encode($jphoto) // Convert photo to base64 for JSON compatibility
+        );
+
+        // Encode journal data as JSON and echo it
+        echo json_encode($journalData);
     } else {
         echo "No journal found with j_id = $j_id";
         exit;
@@ -24,24 +38,6 @@ if (isset($_GET['j_id']) && !empty($_GET['j_id'])) {
 } else {
     echo "No j_id parameter provided";
     exit;
-}
-
-// Process form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Escape user inputs for security
-    $jname = $conn->real_escape_string($_POST['jname']);
-    $jdesc = $conn->real_escape_string($_POST['jdesc']);
-    $daysallowed = $conn->real_escape_string($_POST['daysallowed']);
-    $c_name = $conn->real_escape_string($_POST['c_name']);
-
-    // Update the journal in the database
-    $sql_update = "UPDATE journals SET jname = '$jname', jdesc = '$jdesc', daysallowed = '$daysallowed', c_name = '$c_name' WHERE j_id = '$j_id'";
-
-    if ($conn->query($sql_update) === TRUE) {
-        echo "Journal with j_id = $j_id updated successfully";
-    } else {
-        echo "Error updating record: " . $conn->error;
-    }
 }
 
 // Close connection

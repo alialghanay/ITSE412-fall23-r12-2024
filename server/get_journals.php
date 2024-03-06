@@ -13,7 +13,7 @@ $result = $conn->query($sql_select);
 if ($result->num_rows > 0) {
     // Start building the HTML table
     $output = '<table class="table">';
-    $output .= '<thead><tr><th>Journal ID</th><th>Journal Name</th><th>Description</th><th>Days Allowed</th><th>Category Name</th><th>Journal Photo</th></tr></thead>';
+    $output .= '<thead><tr><th>Journal ID</th><th>Journal Name</th><th>Description</th><th>Days Allowed</th><th>Journal Photo</th><th>Catogory Name</th></tr></thead>';
     $output .= '<tbody>';
     
     // Fetch and output each journal row
@@ -23,12 +23,17 @@ if ($result->num_rows > 0) {
         $output .= '<td>' . $row['jname'] . '</td>';
         $output .= '<td>' . $row['jdesc'] . '</td>';
         $output .= '<td>' . $row['daysallowed'] . '</td>';
-        $output .= '<td>' . $row['c_name'] . '</td>';
         if (!empty($row['jphoto'])) {
             $output .= '<td><img src="data:image/jpeg;base64,'.base64_encode($row['jphoto']).'" style="max-width: 100px; max-height: 100px;" alt="Journal Photo"></td>';
         } else {
             $output .= '<td>No Photo Available</td>';
         }
+        $output .= '<td>' . $row['c_name'] . '</td>';
+       
+        $output .= '<td>';
+        $output .= '<a href="update_journal.html?j_id='.$row['j_id'].'" class="btn btn-primary btn-sm mr-1">Update</a>';
+        $output .= '<button class="btn btn-danger btn-sm" onclick="deleteJournal('.$row['j_id'].')">Delete</button>';
+        $output .= '</td>';
         $output .= '</tr>';
     }
     
