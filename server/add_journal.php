@@ -15,6 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $jphoto = addslashes(file_get_contents($jphoto));
     }
 
+    // Disable foreign key checks
+    $conn->query("SET FOREIGN_KEY_CHECKS = 0");
+
     // Insert into database without specifying j_id
     $sql = "INSERT INTO journals (jname, jdesc, daysallowed, c_name, jphoto) 
             VALUES ('$jname', '$jdesc', '$daysallowed', '$c_name', '$jphoto')";
@@ -24,6 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
+
+    // Enable foreign key checks
+    $conn->query("SET FOREIGN_KEY_CHECKS = 1");
 }
 
 // Close connection
