@@ -38,8 +38,7 @@ function updateForm(pid) {
 
 function updatePaper(id) {
   var formData = $("#paperForm").serialize(); // Assuming your form has id="paperForm"
-  formData += "&p_id=" + id; // Include the paper ID in the form data
-
+  formData += "&p_id=" + id;
   $.ajax({
     type: "POST",
     url: "http://localhost/rppp/server/UpdatePapers.php",
