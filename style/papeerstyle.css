@@ -60,3 +60,8 @@ body {
 textarea.form-control {
   resize: vertical;
 }
+
+.insert {
+  display: flex;
+  justify-content: flex-end;
+}
