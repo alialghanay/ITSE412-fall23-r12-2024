@@ -29,6 +29,7 @@
   <!-- Template Main CSS File -->
   <link href="../Assets/assets/css/style.css" rel="stylesheet">
 
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -39,18 +40,6 @@
 </head>
 
 <body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="../Assets/assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NiceAdmin</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->        
-  </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
@@ -166,50 +155,46 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">General Form Elements</h5>
-              <!-- General Form Elements -->
-              <form>
+
+              <form method="POST" id="appFrom">
                 <div class="row mb-3">
-                    <label for="inputNumber" class="col-sm-2 col-form-label">App ID</label>
+                    <label for="inputText" class="col-sm-2 col-form-label">Application Name</label>
                     <div class="col-sm-4">
-                        <input type="number" class="form-control">
-                    </div>
-                    <label for="inputText" class="col-sm-2 col-form-label">App Name</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="app_name" id="app_name">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="inputText" class="col-sm-2 col-form-label">Publish Number</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="publish_number" id="publish_number">
                     </div>
                     <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
                     <div class="col-sm-4">
-                        <input type="date" class="form-control">
+                        <input type="date" class="form-control" name="publish_date" id="publish_date">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-10 offset-sm-2">
-                        <button type="submit" class="btn btn-primary" name="add">Add</button>
+                        <button type="submitButton" class="btn btn-primary" name="submit">submit</button>
                     </div>
                 </div>
             </form>
             
-            </form>
+         
             <!-- Add these lines to include Bootstrap CSS and JS files -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<table class="table table-bordered border-primary">
+<table class="table table-bordered border-primary" id="apps">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">App name</th>
         <th scope="col">Publish Number</th>
-        
         <th scope="col"> Date</th>
+        <th scope="col">action</th>
       </tr>
     </thead>
     <tbody>
@@ -219,6 +204,14 @@
         <td>Designer</td>
         
         <td>2016-05-25</td>
+        <td>
+          <button type="button" class="btn btn-warning btn-sm me-2">
+            Update
+          </button>
+          <button type="button" class="btn btn-danger btn-sm">
+            Delete
+          </button>
+        </td>
       </tr>
       <tr>
         <th scope="row">2</th>
@@ -226,6 +219,14 @@
         <td>Developer</td>
         
         <td>2014-12-05</td>
+        <td>
+          <button type="button" class="btn btn-warning btn-sm me-2">
+            Update
+          </button>
+          <button type="button" class="btn btn-danger btn-sm">
+            Delete
+          </button>
+        </td>
       </tr>
       <tr>
         <th scope="row">3</th>
@@ -233,6 +234,14 @@
         <td>Finance</td>
         
         <td>2011-08-12</td>
+        <td>
+          <button type="button" class="btn btn-warning btn-sm me-2">
+            Update
+          </button>
+          <button type="button" class="btn btn-danger btn-sm">
+            Delete
+          </button>
+        </td>
       </tr>
       <tr>
         <th scope="row">4</th>
@@ -240,6 +249,14 @@
         <td>HR</td>
         
         <td>2012-06-11</td>
+        <td>
+          <button type="button" class="btn btn-warning btn-sm me-2">
+            Update
+          </button>
+          <button type="button" class="btn btn-danger btn-sm">
+            Delete
+          </button>
+        </td>
       </tr>
       <tr>
         <th scope="row">5</th>
@@ -247,10 +264,18 @@
         <td>Dynamic Division Officer</td>
         
         <td>2011-04-19</td>
+        <td>
+          <button type="button" class="btn btn-warning btn-sm me-2">
+            Update
+          </button>
+          <button type="button" class="btn btn-danger btn-sm">
+            Delete
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
-              </form><!-- End General Form Elements -->
+             
 
             </div>
           </div>
@@ -294,6 +319,14 @@
 
   <!-- Template Main JS File -->
   <script src="../Assets/assets/js/main.js"></script>
+
+  <script src="../Assets/assets/js/insertapplication.js"></script>
+  <script src="../Assets/assets/js/viewapplication.js"></script>
+  <script src="../Assets/assets/js/deleteapplication.js"></script>
+  <script src="../Assets/assets/js/updateapplication.js"></script>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
 

@@ -1,18 +1,21 @@
 <?php
-// Function to delete an application by ID
-function deleteApplication($appId) {
-    global $conn;
+include 'connect.php';
 
-    $sql = "DELETE FROM applications WHERE app_id=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $appId);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $appid = isset($_POST["appid"]) ? $_POST["appid"] : '';
 
-    if ($stmt->execute()) {
-        return "Application deleted successfully";
+    // Perform validation if needed
+
+    $deletePapers = "DELETE FROM applications WHERE app_id = $appid";
+
+    if ($conn->query($deletePapers) === TRUE) {
+        echo json_encode(array("status" => "success", "message" => "papers deleted successfully"));
     } else {
-        return "Error deleting application: " . $stmt->error;
+        echo json_encode(array("status" => "error", "message" => "Error deleting papers: " . $conn->error));
     }
-
-    $stmt->close();
+} else {
+    echo json_encode(array("status" => "error", "message" => "Invalid request method"));
 }
+
+$conn->close();
 ?>

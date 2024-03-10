@@ -6,7 +6,6 @@ $(document).ready(function() {
 
       // Serialize form data
       var formData = $(this).serialize();
-      alert('test');
       // Send an AJAX request
       $.ajax({
         type: 'POST',
