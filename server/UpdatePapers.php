@@ -3,23 +3,20 @@ include 'connect.php';
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve user data from the form
     $id = $_POST['p_id'];
     $title = isset($_POST['title']) ? $_POST['title'] : '';
     $abstract = isset($_POST['abstract']) ? $_POST['abstract'] : '';
-    $year = isset($_POST['year']) ? intval($_POST['year']) : 0; // Convert to integer
-    // Handle file upload separately
-    $file = ''; // Initialize file variable
+    $year = isset($_POST['year']) ? intval($_POST['year']) : 0; 
+    $file = ''; 
     if (isset($_FILES['file'])) {
-        $file = $_FILES['file']['name']; // Get file name
-        // Handle file upload logic here
+        $file = $_FILES['file']['name']; 
     }
     $app_id = isset($_POST['app_id']) ? intval($_POST['app_id']) : 0; // Convert to integer
     $state = isset($_POST['state']) ? $_POST['state'] : '';
-    $mem_id = isset($_POST['mem_id']) ? $_POST['mem_id'] : '';
+    // $mem_id = isset($_POST['mem_id']) ? $_POST['mem_id'] : '';
     $lan = isset($_POST['lan']) ? $_POST['lan'] : '';
     
-    $sql = "UPDATE papers SET title='$title', abstract='$abstract', year='$year', file='$file', app_id='$app_id', state='$state', mem_id='$mem_id', lan='$lan' WHERE p_id='$id'";
+    $sql = "UPDATE papers SET title='$title', abstract='$abstract', year='$year', file='$file', app_id='$app_id', state='$state', lan='$lan' WHERE p_id='$id'";
     $result = $conn->query($sql);
 
     if ($result) {
