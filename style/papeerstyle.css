@@ -1,0 +1,67 @@
+/* Custom CSS Styles for HTML Forms */
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #f8f9fa; /* Set background color */
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ced4da; /* Set border color */
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #007bff; /* Highlight border color on focus */
+  outline: none;
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+.col-form-label {
+  font-weight: bold;
+}
+
+.btn {
+  background-color: #007bff; /* Set button background color */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn:hover {
+  background-color: #0056b3; /* Change button background color on hover */
+}
+
+/* Style for File Input */
+.form-control-file {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.form-control-file:focus {
+  outline: none;
+  border-color: #007bff; /* Highlight border color on focus */
+}
+
+/* Style for Textarea */
+textarea.form-control {
+  resize: vertical;
+}
+
+.insert {
+  display: flex;
+  justify-content: flex-end;
+}
