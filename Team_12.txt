@@ -1,0 +1,8 @@
+         م. محمد ابوغرارة - المشرف المسؤول على ادارة هذا المشروع
+
+اسم الطالب               الوظيفة                    Job Title
+علي الغناي           ادارة الاعضاء            Members Management
+ابوالقاسم الترهوني   ادارة المجلات           Journals Management
+احمد المحجوب         ادارة المستخدمين       Users Management
+انس المغربي          ادارة الاوراق           Papers Management
+ايمن التاجوري         ادارة التطبيقات         Applications Management
