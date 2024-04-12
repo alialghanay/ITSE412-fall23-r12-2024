@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Update User - Admin Panel</title>
+  
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <link href="../Assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../Assets/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../Assets/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../Assets/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../Assets/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../Assets/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../Assets/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script src="../Assets/assets/js/recived_user_update.js"></script>
+    
+    <link href="../Assets/assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <main>
+        <div class="container">
+
+            <section class="section update-user min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                            <div class="d-flex justify-content-center py-4">
+                                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                                    <span class="d-none d-lg-block">Team 12</span>
+                                </a>
+                            </div><!-- End Logo -->
+
+                            <div class="card mb-3">
+
+                                <div class="card-body">
+
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">Update User Details</h5>
+                                        <p class="text-center small">Enter the new details for the user</p>
+                                    </div>
+
+                                    <form id="updateForm" class="row g-3 needs-validation" novalidate method="post">
+                                        <div class="col-12">
+                                            <label for="userId" class="form-label">User ID</label>
+                                            <input type="text" name="userId" class="form-control" id="userId" required readonly>
+                                            <div class="invalid-feedback">Please enter the user ID.</div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="newUsername" class="form-label">New Username</label>
+                                            <input type="text" name="newUsername" class="form-control" id="newUsername" required>
+                                            <div class="invalid-feedback">Please enter the new username.</div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="newEmail" class="form-label">New Email</label>
+                                            <input type="email" name="newEmail" class="form-control" id="newEmail" required>
+                                            <div class="invalid-feedback">Please enter the new email address.</div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="newPassword" class="form-label">New Password</label>
+                                            <input type="password" name="newPassword" class="form-control" id="newPassword" required>
+                                            <div class="invalid-feedback">Please enter the new password.</div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100" type="button" id="updateUserBtn">Update User</button>
+                                        </div>
+                                    </form>
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+    <script>
+   $(document).ready(function() {
+    $('#updateUserBtn').click(function() {
+        // Trigger form submission
+        $('#updateForm').submit();
+    });
+
+    $('#updateForm').submit(function(e) {
+        e.preventDefault(); // Prevent the form from submitting normally
+        
+        // Validate the form
+        var form = $(this)[0];
+        if (!form.checkValidity()) {
+            // If the form is not valid, display validation messages
+            $(form).addClass('was-validated');
+            return;
+        }
+        
+        // If the form is valid, proceed with AJAX request
+        var formData = {
+            userId: $('#userId').val(),
+            newUsername: $('#newUsername').val(),
+            newEmail: $('#newEmail').val(),
+            newPassword: $('#newPassword').val()
+        };
+
+        // Your AJAX request goes here
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8000/ITSE412-fall23-r12/server/update_user.php',
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+                alert("data updated");
+                // Redirect to admin page upon successful update
+                window.location.href = 'http://localhost:8000/ITSE412-fall23-r12/client/admin.html';
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                // Handle AJAX error
+            }
+        });
+
+        // For demonstration, let's just log the form data
+        console.log('Form submitted:', formData);
+    });
+});
+
+    </script>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+ 
+    <script src="../Assets/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="../Assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../Assets/assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="../Assets/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="../Assets/assets/vendor/quill/quill.min.js"></script>
+    <script src="../Assets/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="../Assets/assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="../Assets/assets/vendor/php-email-form/validate.js"></script>
+    <script src="../Assets/assets/js/update_user.js"></script> 
+   
+    <script src="../Assets/assets/js/main.js"></script>
+
+</body>
+
+</html>

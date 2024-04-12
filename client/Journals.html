@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Forms / Elements - NiceAdmin Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+ <script src="../Assets/assets/js/ajax_functions/fetchJournals.js"></script>
+ <script src="../Assets/assets/js/ajax_functions/addJournal.js"></script>
+ <script src="../Assets/assets/js/ajax_functions/deleteJournal.js"></script>
+ <script src="../Assets/assets/js/ajax_functions/updateJournal.js"></script>
+ <script src="../Assets/assets/js/components-loder.js"></script>
+
+
+ <!-- Favicons -->
+ <link href="../Assets/assets/img/favicon.png" rel="icon">
+ <link href="../Assets/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
+  <!-- Vendor CSS Files -->
+  <link href="../Assets/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../Assets/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../Assets/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../Assets/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="../Assets/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="../Assets/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../Assets/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="../Assets/assets/css/style.css" rel="stylesheet">
+  </style>
+</head>
+<body>
+
+  <header id="header" class="header fixed-top d-flex align-items-center justify-content-between">
+    
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+        
+  </header><!-- End Header -->
+
+  <aside id="sidebar" class="sidebar">
+    
+    
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+    
+    <section class="section">
+        <h2 id="sos" style="font-size: 35px; font-weight: bold; text-transform: uppercase; margin-bottom: 20px;text-align: center;">Journals</h2>      <div class="row">        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <div class="container mt-5">
+                <div class="text-left mb-3">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addJournalModal">Add Journal</button>
+                  </div>
+                <!-- Container for the table -->
+                <div id="journalsTable"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+   
+  </main><!-- End #main -->
+
+  <footer id="footer" class="footer">
+   
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../Assets/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../Assets/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../Assets/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="../Assets/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="../Assets/assets/vendor/quill/quill.min.js"></script>
+  <script src="../Assets/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../Assets/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../Assets/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../Assets/assets/js/main.js"></script>
+  <script>
+    $(document).ready(function() {
+    
+    fetchJournals(); // calling the function to fetch the journals'  
+    $('#addJournalForm').submit(function(event) {
+  var jnameValue = $('#jname').val();
+  var cNameValue = $('#c_name').val();
+  var jDescValue = $('#jdesc').val();
+  
+  var isValid = true;
+
+  $('#jnameError').remove();
+  $('#cNameError').remove();
+  $('#jDescError').remove();
+
+  if (!isNaN(jnameValue) || /^\d+$/.test(jnameValue)) {
+    $('#jname').after('<span id="jnameError" class="text-danger">Please enter a valid name for Journal Name.</span>');
+    isValid = false;
+  } 
+  
+  if (!isNaN(cNameValue) || /^\d+$/.test(cNameValue)) {
+    $('#c_name').after('<span id="cNameError" class="text-danger">Please enter a valid name for Chapter Name.</span>');
+    isValid = false;
+  } 
+  
+  if (!isNaN(jDescValue) || /^\d+$/.test(jDescValue)) {
+    $('#jdesc').after('<span id="jDescError" class="text-danger">Please enter a valid description.</span>');
+    isValid = false;
+  }
+  
+  if (!isValid) {
+    event.preventDefault(); 
+  } else {
+    // If all inputs has been validated then add the Journal
+    addJournal(new FormData(this), fetchJournals);
+    event.preventDefault(); 
+  }
+
+});        
+});
+ 
+
+</script>
+  <!-- Bootstrap Add Journal Modal -->
+   <div class="modal fade" id="addJournalModal" tabindex="-1" role="dialog" aria-labelledby="addJournalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addJournalModalLabel">Add New Journal</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Form for adding new journal -->
+          <form id="addJournalForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="jname">Journal Name</label>
+              <input type="text" class="form-control" id="jname" name="jname" required>
+            </div>
+            <div class="form-group">
+              <label for="c_name">Chapter Name</label>
+              <input type="text" class="form-control" id="c_name" name="c_name" required>
+            </div>
+            <div class="form-group">
+              <label for="jdesc">Description</label>
+              <textarea class="form-control" id="jdesc" name="jdesc" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="jphoto">Journal Photo</label>
+              <input type="file" class="form-control-file" id="jphoto" name="jphoto" accept="image/*">
+            </div>
+            <div class="form-group">
+              <label for="daysallowed">Days Allowed</label>
+              <input type="number" class="form-control" id="daysallowed" name="daysallowed" min= "1" required>            </div>
+            
+            <button type="submit" class="btn btn-primary">Add Journal</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- Bootstrap Update Journal Modal -->
+ <div class="modal fade" id="updateJournalModal" tabindex="-1" role="dialog" aria-labelledby="updateJournalModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateJournalModalLabel">Update Journal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Form for updating journal -->
+        <form id="updateJournalForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="updateJName">Journal Name</label>
+            <input type="text" class="form-control" id="updateJName" name="updateJName" required>
+          </div>
+          <div class="form-group">
+            <label for="updateCName">Chapter Name</label>
+            <input type="text" class="form-control" id="updateCName" name="updateCName" required>
+          </div>
+          <div class="form-group">
+            <label for="updateJDesc">Description</label>
+            <textarea class="form-control" id="updateJDesc" name="updateJDesc" rows="4" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="updateJPhoto">Journal Photo</label>
+            <input type="file" class="form-control-file" id="updateJPhoto" name="updateJPhoto">
+          </div>
+          <div class="form-group">
+            <label for="updateDaysAllowed">Days Allowed</label>
+            <input type="number" class="form-control" id="updateDaysAllowed" name="updateDaysAllowed" min="1" required>
+          </div>
+          <input type="hidden" id="updateJId" name="updateJId">
+          <button type="submit" class="btn btn-primary" id="confirmUpdateButton">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Bootstrap Delete confirmation modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this journal?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+</body>
+</html>
+
+<!--
+  reviewed by @alialghanay on 10/10/2022
+  Meta Information: Contains meta tags for character set, viewport settings, and page title.
+  Libraries: Includes external JavaScript libraries (jQuery and Bootstrap) and CSS files (Bootstrap).
+  Scripts: Links to various JavaScript files for handling AJAX requests and components.
+  Favicons and Fonts: Links to favicon and Google Fonts.
+  Vendor CSS Files: Links to CSS files for various vendor libraries (Bootstrap, Bootstrap Icons, Boxicons, Quill, Remixicon, Simple DataTables).
+  Main CSS File: Link to the main CSS file for custom styling.
+  Header: Contains a fixed header with a toggle button for sidebar navigation.
+  Sidebar: Empty sidebar section.
+  Main Content Section: Contains a section for managing journals.
+  Title: "Journals" displayed with styling.
+  Add Journal Button: Button to open a modal for adding a new journal.
+  Journals Table: Container for displaying a table of journals.
+  Footer: Empty footer section.
+  Back to Top Button: Button to scroll back to the top of the page.
+  Vendor JS Files: Links to various JavaScript files for vendor libraries (ApexCharts, Chart.js, ECharts, Quill, Simple DataTables, TinyMCE).
+  Main JS File: Link to the main JavaScript file for custom functionality.
+  Script Block: Contains JavaScript code for initializing functions, handling form submissions, and modals for adding, updating, and deleting journals.
+  Bootstrap Modals: Modals for adding, updating, and confirming deletion of journals.
+-->
